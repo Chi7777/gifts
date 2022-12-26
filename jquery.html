@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>交換禮物</title>	
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="js/snowstorm.js"></script>
+<link type="text/css" href="style.css" rel="stylesheet">
+<link rel="apple-touch-icon" href="images/icon.png">
+<link rel="icon" href="images/icon.png" type="image/png"/>
+<script>
+var qty=0;
+var members = [];
+$(document).ready(function(){
+
+    $("#xmastree").click(function(){
+    	var num = Math.floor(Math.random()*3)+1;
+        var gift = '<img src="images/gift-icon'+num+'.png" width="80" alt="" style="cursor: pointer;" onclick="choqian();$(this).remove();">';
+        $("#display_box").append(gift);
+		members[qty]=qty+1;
+        qty++;
+    });
+    
+	$("button").click(function(){
+            alert(qty);
+			alert(members);
+    });
+	
+	
+	
+});
+
+function choqian() {
+	var Luckynum = Math.floor(Math.random()*qty);
+	
+	while(members[Luckynum] ==0){
+		Luckynum = Math.floor(Math.random()*qty);
+	}
+	while(members[Luckynum] != 0){
+		alert("恭喜抽到"+(Luckynum+1)+"號");
+		members[Luckynum]=0;
+		alert(members);
+		qty--;
+	}
+	
+	
+}
+
+
+</script>
+</head>
+<body>
+<div id="content">
+	<center>
+	<img id="xmastree" src="images/christmas-tree.png" width="300" alt="聖誕樹" style="cursor: pointer;"></center><br>
+    <button>get qty</button>
+    <div id="display_box" class="display"></div>
+
+</div>
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+	<center>
+    <span class="close">&times;</span>
+	<img onclick="choqian()" src="images/gift-icon1.png" height="200" alt="禮物"><br>
+    <p id="text_msg"></p>
+	</center>
+  </div>
+
+</div>
+</body>
+</html>

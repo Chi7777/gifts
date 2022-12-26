@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>交換禮物</title>	
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="js/snowstorm.js"></script>
+<link type="text/css" href="style.css" rel="stylesheet">
+<link rel="apple-touch-icon" href="images/icon.png">
+<link rel="icon" href="images/icon.png" type="image/png"/>
+
+</head>
+<body>
+<div id="snow"></div>
+<div id="content">
+	<center>
+	<img onclick="setqty()" id="xmastree" src="images/christmas-tree.png" width="300" alt="聖誕樹" style="cursor: pointer;"></center><br>
+    <div id="display_box" class="display"></div>
+
+</div>
+	
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+	<center>
+    <span class="close">&times;</span>
+	<img onclick="choqian()" src="images/gift-icon1.png" height="200" alt="禮物"><br>
+    <p id="text_msg"></p>
+	</center>
+  </div>
+
+</div>
+
+
+<script>
+var modal = document.getElementById('myModal');
+var span = document.getElementsByClassName("close")[0];
+
+span.onclick = function() {
+    modal.style.display = "none";
+}
+modal.onclick = function() {
+    modal.style.display = "none";
+}
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
+
+<script>
+var qty =1; //禮物預設1,新增禮物從2開始
+var members = [];
+var display_qty;
+var img_store = [];
+var imgnum;
+
+function setqty(){
+
+	document.getElementById("display_box").innerHTML = '';
+	qty += 1;
+	display_qty = qty;
+	for(i=0;i<qty;i++){
+		imgnum = Math.floor(Math.random()*3)+1;
+		img_store[i] = imgnum;
+		members[i] = i+1;
+        document.getElementById("display_box").innerHTML += '<img onclick="choqian()" src="images/gift-icon'+img_store[i]+'.png" width="80" class="gift" >';
+	}
+}
+
+function choqian(){
+modal.style.display = "block";
+var num = Math.floor(Math.random()*qty);
+var msg = "";
+while( members[num] == 0){
+	num = Math.floor(Math.random()*qty);
+}
+while( members[num] != 0){
+
+	document.getElementById("display_box").innerHTML = '';
+	msg += "\n你抽到"+(num+1)+"號的禮物";
+	members[num] = 0; //抽過的號碼不重複
+	display_qty -= 1;
+	for(i=0;i<display_qty;i++){
+		document.getElementById("display_box").innerHTML += '<img onclick="choqian()" src="images/gift-icon'+imgnum+'.png" width="80" class="gift" >';
+	}
+	if(display_qty==0){
+		qty = 1;   
+	}
+}
+document.getElementById("text_msg").innerHTML = msg;
+
+}
+
+</script>
+</body>
+</html>
+
+
